@@ -1,6 +1,5 @@
 package main;
 
-import javax.imageio.plugins.tiff.ExifTIFFTagSet;
 import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;

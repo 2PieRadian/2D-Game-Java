@@ -1,5 +1,7 @@
 package entities;
 
+import static utils.LoadSave.*;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,12 +12,16 @@ import static utils.Constants.Directions.*;
 import static utils.Constants.PlayerConstants.*;
 
 public class Player extends Entity {
+    // animationTick	Timer — how long we’ve been showing the current frame
+    // animationSpeed	Threshold — how long to wait before switching frames
+    // animationIndex	Which animation frame to show
     private int animationTick, animationIndex, animationSpeed = 20;
+    private BufferedImage[][] animations;
     private int playerAction = IDLE;
     private boolean moving = false;
-    private BufferedImage[][] animations;
+    private boolean attacking = false;
     private boolean left, up, right, down;
-    private float playerSpeed = 1.0f;
+    private float playerSpeed = 3.0f;
 
     public Player(float x, float y) {
         super(x, y);
@@ -29,31 +35,17 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, 9*64, 9*40, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, 4*64, 4*40, null);
     }
 
     private void getSubImages() {
-        // Getting the image
-        InputStream is = getClass().getResourceAsStream("/player_sprites.png");
+        BufferedImage img = GetSpriteAtlas(PLAYER_ATLAS);
 
-        try {
-            BufferedImage img = ImageIO.read(is);
-
-            // Storing all the sub-images
-            animations = new BufferedImage[9][6];
-
-            for (int i = 0; i < animations.length; i++) {
-                for (int j = 0; j < animations[i].length; j++) {
-                    animations[i][j] = img.getSubimage(j * 64, i * 40, 64, 40);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        // Storing all the sub-images
+        animations = new BufferedImage[9][6];
+        for (int i = 0; i < animations.length; i++) {
+            for (int j = 0; j < animations[i].length; j++) {
+                animations[i][j] = img.getSubimage(j * 64, i * 40, 64, 40);
             }
         }
     }
@@ -65,17 +57,32 @@ public class Player extends Entity {
             animationTick = 0;
             animationIndex++;
 
+            // So it does not reaches a blank sub-image
             if (animationIndex >= getNumberOfSprites(playerAction)) {
                 animationIndex = 0;
+
+                if (playerAction == ATTACK_JUMP_1)
+                    attacking = false;
             }
         }
     }
 
     private void updatePlayerAction() {
+        int startPlayerAction = playerAction;
+
         if (moving)
             playerAction = RUNNING;
         else
             playerAction = IDLE;
+
+        if (attacking) {
+            playerAction = ATTACK_JUMP_1;
+        }
+
+        if (startPlayerAction != playerAction) {
+            animationTick = 0;
+            animationIndex = 0;
+        }
     }
 
     private void updatePosition() {
@@ -136,5 +143,9 @@ public class Player extends Entity {
         up = false;
         right = false;
         down = false;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 }
