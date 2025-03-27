@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Game game) {
         this.game = game;
-
+        setFocusable(true);
         setPanelSize();
 
         addKeyListener(new KeyboardInputs(this));
