@@ -15,13 +15,13 @@ public class Player extends Entity {
     // animationTick	Timer — how long we’ve been showing the current frame
     // animationSpeed	Threshold — how long to wait before switching frames
     // animationIndex	Which animation frame to show
-    private int animationTick, animationIndex, animationSpeed = 20;
+    private int animationTick, animationIndex, animationSpeed = 25;
     private BufferedImage[][] animations;
     private int playerAction = IDLE;
     private boolean moving = false;
     private boolean attacking = false;
     private boolean left, up, right, down;
-    private float playerSpeed = 3.0f;
+    private float playerSpeed = 2.0f;
 
     public Player(float x, float y) {
         super(x, y);
