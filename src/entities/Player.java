@@ -21,10 +21,10 @@ public class Player extends Entity {
     private boolean moving = false;
     private boolean attacking = false;
     private boolean left, up, right, down;
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 1.0f;
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
         getSubImages();
     }
 
@@ -35,7 +35,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, 4*64, 4*40, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
     }
 
     private void getSubImages() {

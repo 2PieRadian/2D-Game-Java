@@ -21,7 +21,6 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Game game) {
         this.game = game;
-        setFocusable(true);
         setPanelSize();
 
         addKeyListener(new KeyboardInputs(this));
@@ -33,13 +32,12 @@ public class GamePanel extends JPanel {
     private void setPanelSize() {
         // 32x32 Image Size
         Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
-        System.out.println("WIDTH: " + GAME_WIDTH + " | HEIGHT: " + GAME_HEIGHT);
-        setMinimumSize(size);
+//        setMinimumSize(size);
         setPreferredSize(size);
-        setMaximumSize(size);
+//        setMaximumSize(size);
     }
 
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         game.render(g);
     }

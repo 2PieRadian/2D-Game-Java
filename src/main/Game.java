@@ -34,7 +34,7 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        player = new Player(100, 100);
+        player = new Player(100, 100, (int) (64*SCALE), (int) (40*SCALE));
         levelManager = new LevelManager(this);
     }
 
@@ -44,8 +44,8 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
+        levelManager.draw(g);
         player.render(g);
-        levelManager.render(g);
     }
 
     @Override
