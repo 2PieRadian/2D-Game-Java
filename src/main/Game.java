@@ -44,7 +44,7 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
-        levelManager.draw(g);
+        levelManager.draw(g); // We want background to render first
         player.render(g);
     }
 

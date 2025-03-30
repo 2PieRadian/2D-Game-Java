@@ -31,11 +31,13 @@ public class Player extends Entity {
     public void update() {
         updateAnimationTick();
         updatePosition();
+        updateHitbox();
         updatePlayerAction();
     }
 
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
+        drawHitbox(g);
     }
 
     private void getSubImages() {
