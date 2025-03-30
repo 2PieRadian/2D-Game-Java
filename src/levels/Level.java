@@ -13,4 +13,8 @@ public class Level {
         // Suppose we need the tile to render at x and y starting from (2,0), then we would need to look at (0, 2) inside our levelData.
         return levelData[y][x];
     }
+
+    public int[][] getLevelData() {
+        return levelData;
+    }
 }

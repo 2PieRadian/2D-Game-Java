@@ -1,5 +1,6 @@
 package entities;
 
+import static utils.HelperMethods.*;
 import static utils.LoadSave.*;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ public class Player extends Entity {
     private boolean attacking = false;
     private boolean left, up, right, down;
     private float playerSpeed = 1.0f;
+    private int[][] levelData;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -38,6 +40,10 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
         drawHitbox(g);
+    }
+
+    public void loadLevelData(int[][] levelData) {
+        this.levelData = levelData;
     }
 
     private void getSubImages() {
@@ -89,20 +95,28 @@ public class Player extends Entity {
 
     private void updatePosition() {
         moving = false;
+        // If no button is pressed then just set 'moving = false', and 'return'
+        if (!left && !up && !right && !down) return;
+
+        float xSpeed = 0, ySpeed = 0;
 
         if (left && !right) {
-            x -= playerSpeed;
-            moving = true;
-        } else if (right && !left) {
-            x += playerSpeed;
-            moving = true;
+            xSpeed = -playerSpeed;
+        }
+        else if (right && !left) {
+            xSpeed = playerSpeed;
         }
 
         if (up && !down) {
-            y -= playerSpeed;
-            moving = true;
-        } else if (down && !up) {
-            y += playerSpeed;
+            ySpeed = -playerSpeed;
+        }
+        else if (down && !up) {
+            ySpeed = playerSpeed;
+        }
+
+        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, levelData)) {
+            this.x += xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
     }
