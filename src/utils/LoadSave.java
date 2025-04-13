@@ -13,11 +13,6 @@ public class LoadSave {
     public static final String LEVEL_ATLAS = "outside_sprites.png";
     public static final String LEVEL_ONE_DATA = "level_one_data.png";
 
-//    public LoadSave() {
-//        BufferedImage levelOneData = GetSpriteAtlas(LEVEL_ONE_DATA);
-//        System.out.println(levelOneData.getHeight()); // 14
-//        System.out.println(levelOneData.getWidth()); // 26
-//    }
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);

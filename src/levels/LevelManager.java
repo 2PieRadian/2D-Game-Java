@@ -25,8 +25,8 @@ public class LevelManager {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 12; j++) {
-                int index = i*12 + j;
-                levelSprite[index] = image.getSubimage(j*32, i*32, 32, 32);
+                int index = i * 12 + j;
+                levelSprite[index] = image.getSubimage(j * 32, i * 32, 32, 32);
             }
         }
     }
@@ -36,7 +36,8 @@ public class LevelManager {
             for (int j = 0; j < Game.TILES_IN_WIDTH; j++) {
                 // (j, i) is the point where the current tile starts
                 int indexOfCurrentTile = levelOne.getSpriteIndex(j, i);
-                g.drawImage(levelSprite[indexOfCurrentTile], TILES_SIZE*j, TILES_SIZE*i, TILES_SIZE, TILES_SIZE, null);
+                g.drawImage(levelSprite[indexOfCurrentTile], TILES_SIZE * j, TILES_SIZE * i, TILES_SIZE, TILES_SIZE,
+                        null);
             }
         }
     }
@@ -48,5 +49,4 @@ public class LevelManager {
     public Level getCurrentLevel() {
         return levelOne;
     }
-
 }

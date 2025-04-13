@@ -19,7 +19,7 @@ public class Constants {
         public static final int ATTACK_JUMP_1 = 7;
         public static final int ATTACK_JUMP_2 = 8;
 
-        public static int getNumberOfSprites(int player_action) {
+        public static int GetNumberOfSprites(int player_action) {
             return switch (player_action) {
                 case IDLE -> 5;
                 case RUNNING -> 6;
